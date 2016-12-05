@@ -1,6 +1,6 @@
 DEVLOG:
 
-11/2/16:
+12/2/16:
     Sebastian Cain:
         - created devlog and credentials files
         - started app.py with clarifai installation and example request
@@ -9,3 +9,8 @@ DEVLOG:
         - Requested Flickr API Key & Secret
         - Briefly tested out simple Flickr API use
         - Useful Flickr API Tutorial : https://github.com/alexis-mignon/python-flickr-api/wiki/Tutorial
+
+12/5/16:
+    Sebastian Cain:
+        - Made the executive decision to not use the Flickr API and to use the Tinify API instead, a photo compression API
+        - Changed the design doc to accomodate this change
