@@ -4,3 +4,8 @@ DEVLOG:
     Sebastian Cain:
         - created devlog and credentials files
         - started app.py with clarifai installation and example request
+
+12/04/16
+        - Requested Flickr API Key & Secret
+        - Briefly tested out simple Flickr API use
+        - Useful Flickr API Tutorial : https://github.com/alexis-mignon/python-flickr-api/wiki/Tutorial
