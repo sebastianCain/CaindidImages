@@ -14,3 +14,7 @@ DEVLOG:
     Sebastian Cain:
         - Made the executive decision to not use the Flickr API and to use the Tinify API instead, a photo compression API
         - Changed the design doc to accomodate this change
+    Jiaqi Gao:
+    	- Added register and login to app.py 
+        - Includes static folder with bootstrap css
+        - Includes templates folder with a base.html and register/login pages 
