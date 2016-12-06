@@ -43,7 +43,7 @@ def validate_form(form, required_keys):
 def index():
     if "username" not in session:
         return redirect(url_for("login"))
-    return render_template("index.html",username="True")
+    return render_template("index.html",username=session['username'])
 
 #create a new account app route
 @app.route("/register", methods=["POST", "GET"])
@@ -96,6 +96,10 @@ def login():
 def logout():
     session.clear()
     return redirect(url_for("index"))
+
+@app.route("/upload")
+def upload():
+    return render_template("upload.html",upload="True")
 
 if __name__=="__main__":
     if not os.path.exists("data.db"):
