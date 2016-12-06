@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Register</title>
+{% endblock %}
+
+{% block body %}
+<h1>Register for an account</h1>
+<form action="/register" method="POST">
+    <div class="row">
+        <div class="col-md-6">
+            <p>Username: <input class="form-control" type="text" name="username" pattern="[A-Za-z0-9]+" placeholder="Username" required></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p>Password: <input class="form-control" type="password" name="pass" placeholder="Password" required></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p>Confirm Password: <input class="form-control" type="password" name="passconfirm" placeholder="Password" required></p>
+        </div>
+    </div>
+    
+    <br>
+<input class="btn btn-primary" type="submit" value="Register">
+{% endblock %}
