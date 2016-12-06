@@ -43,7 +43,7 @@ def validate_form(form, required_keys):
 def index():
     if "username" not in session:
         return redirect(url_for("login"))
-    return render_template("index.html")
+    return render_template("index.html",username="True")
 
 #create a new account app route
 @app.route("/register", methods=["POST", "GET"])
