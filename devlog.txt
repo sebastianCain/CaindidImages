@@ -6,6 +6,7 @@ DEVLOG:
         - started app.py with clarifai installation and example request
 
 12/04/16
+    Yuki Chen:
         - Requested Flickr API Key & Secret
         - Briefly tested out simple Flickr API use
         - Useful Flickr API Tutorial : https://github.com/alexis-mignon/python-flickr-api/wiki/Tutorial
@@ -18,3 +19,10 @@ DEVLOG:
     	- Added register and login to app.py 
         - Includes static folder with bootstrap css
         - Includes templates folder with a base.html and register/login pages 
+
+12/6/16:
+    Yuki Chen:
+        - Testing out how to upload image locally (Thanks to Lawrence for debugging)
+        - Incorporated uploading function to app.py
+        - Created html for uploading new image
+        - Little changes to other html pages
