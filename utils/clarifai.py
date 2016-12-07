@@ -1,11 +1,12 @@
 from clarifai import rest
 from clarifai.rest import ClarifaiApp
-import tinify
+#import tinify
 from clarifai.rest import Image as ClImage
 
 CLARIFAI_APP_ID = "Y8pZV9ZL3UxoCsTzeg-lK4zz6nJDJmZ0bt0xheJA"
 CLARIFAI_APP_SECRET = "RtqGr7kvfCdiyzCRZsJ2ElqdsjJpreydSkTCZUO4"
 
+app = ClarifaiApp()
 
 #to make a request:
 def requestTags(imageName):
@@ -22,6 +23,6 @@ def requestTags(imageName):
         #i["value"] is the likelihood of the image relating to the
     return keywords[:10]
 
-
+print requestTags("train.png")
 
 #tinify.key = "N5bZsPRvTbuuTmdrXykaLC7WJPmnrW3N
