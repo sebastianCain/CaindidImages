@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block navbar %}
+<li><a href = "/"> Back </a></li>
+<li><a href = "/logout"> Logout </a></li>
+{% endblock %}
+<center>
+<h3> Upload A New Image </h3>
+<br>
+{% block body %}
+<div class="row">
+  <div class="col-md-12">
+    <form method='POST' action="/upload" enctype="multipart/form-data">
+      <input type="file" name="file"><br><br>
+      <input type="submit" vaue="Upload">
+    </form>
+  </div>
+</div>
+{% endblock %}

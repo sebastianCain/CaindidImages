@@ -27,11 +27,14 @@ CLARIFAI_APP_SECRET = "RtqGr7kvfCdiyzCRZsJ2ElqdsjJpreydSkTCZUO4"
 
 from flask import abort, Flask, render_template, request, redirect, url_for, session
 import datetime, os
+from werkzeug.utils import secure_filename
 
 import hashlib
 import db_builder
 import user
 
+#path for upload folder
+path = "images"
 app = Flask(__name__)
 
 def validate_form(form, required_keys):
@@ -97,9 +100,24 @@ def logout():
     session.clear()
     return redirect(url_for("index"))
 
-@app.route("/upload")
+#to check if uploaded file is an image
+extensions = set(['png','jpg','jpeg','PNG','JPG','JPEG'])
+def checkFile(filename):
+    return '.' in filename and filename.rsplit('.',1)[1] in extensions
+
+#generate either html for user to upload image OR to save uploaded image
+@app.route("/upload", methods=['GET','POST'])
 def upload():
-    return render_template("upload.html",upload="True")
+    if request.method == "GET":
+        return render_template("upload.html",upload="True")
+    elif request.method == "POST":
+        file = request.files['file']
+        if file and checkFile(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(path,filename))
+            return render_template("index.html",username=session['username'],message="Image Uploaded!",category="success")
+        return render_template("upload.html",upload="True",message="Invalid File",category="danger")
+
 
 if __name__=="__main__":
     if not os.path.exists("data.db"):

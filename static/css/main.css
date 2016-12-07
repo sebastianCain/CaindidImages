@@ -17,3 +17,10 @@ body {
 .story-text {
     /* font-family: 'Amatic SC', cursive; */
 }
+
+li.greet {
+    font-family: 'Amatic SC', cursive;
+    font-weight: bold;
+    color:#4c5760;
+    line-height:2em;
+}

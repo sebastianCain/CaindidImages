@@ -4,6 +4,10 @@
 <title>Register</title>
 {% endblock %}
 
+{% block navbar %}
+<li><a href = "/login"> Login </a></li>
+{% endblock %}
+
 {% block body %}
 <h1>Register for an account</h1>
 <form action="/register" method="POST">
