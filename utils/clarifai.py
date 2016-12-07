@@ -15,13 +15,14 @@ def requestTags(imageName):
     model.predict([image])
 
     #request response:
-
     dict = response["output"][0]["data"]["concepts"]
     keywords = []
     for i in dict:
         keywords.append(i["name"])
-        #i["value"] is the likelihood of the image relating to the
+        #i["value"] is the likelihood of the tag relating to the image
     return keywords[:10]
+
+#need a method that adds each tag to the row in our table, preferably in db_builder.py
 
 print requestTags("train.png")
 
