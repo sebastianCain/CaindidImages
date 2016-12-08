@@ -38,3 +38,6 @@ jiaqiG -- 2016-12-8 13:19
 yukiC -- 2016-12-8 18:01
 - Tested out how to allow users to upload image with a link
 - Made link upload more robust(generate new filename if already exist, check if link is a picture of accepted format)
+
+lawrenceL -- 2016-12-8 13:51
+- Fixed devlog format
