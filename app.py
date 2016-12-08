@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 import hashlib
 import db_builder
 import user
+import utils.clarifai
 
 #path for upload folder
 path = "images"
@@ -88,6 +89,10 @@ def upload():
         if file and checkFile(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(path,filename))
+            #tags = utils.clarifai.requestTags(filename)
+            #Add tags to table- work in progress
+            #add_pic(path+"/"+filename, uid????, tags)
+            #a way to add tags one by one since the variable tags is a dict?
             return render_template("index.html",username=session['username'],message="Image Uploaded!",category="success")
         return render_template("upload.html",upload="True",message="Invalid File",category="danger")
 

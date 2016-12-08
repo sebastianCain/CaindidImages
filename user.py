@@ -53,5 +53,11 @@ def get_info(uid):
         }
     return info
 
+'''def add_pic(link,uid,tags):
+    db = sqlite3.connect(DATABASE)
+    c = db.cursor()
 
+    query = "INSERT INTO pics VALUES (link, uid, tags)"
+    c.execute(query)
 
+    something like this'''

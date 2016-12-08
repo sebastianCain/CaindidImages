@@ -26,3 +26,8 @@ DEVLOG:
         - Incorporated uploading function to app.py
         - Created html for uploading new image
         - Little changes to other html pages
+
+12/7/16:
+    Lawrence Liu:
+        - Started integration between Clarifai API and app.py
+        - Created tentative methods for creating a table for pictures and adding pictures to the table

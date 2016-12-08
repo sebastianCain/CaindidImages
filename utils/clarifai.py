@@ -22,7 +22,7 @@ def requestTags(imageName):
         #i["value"] is the likelihood of the tag relating to the image
     return keywords[:10]
 
-#need a method that adds each tag to the row in our table, preferably in db_builder.py
+
 
 print requestTags("train.png")
 
