@@ -33,3 +33,6 @@ DEVLOG:
         - Created tentative methods for creating a table for pictures and adding pictures to the table
     Jiaqi Gao:
         - Homepage displays all uploaded pictures from all users
+    Yuki Chen:
+        - Tested out how to allow users to upload image with a link
+        - Made link upload more robust(generate new filename if already exist, check if link is a picture of accepted format)
