@@ -1,5 +1,5 @@
 from flask import abort, Flask, render_template, request, redirect, url_for, session
-import datetime, os, urllib
+import datetime, os, urllib, string
 from werkzeug.utils import secure_filename
 
 import hashlib
@@ -99,13 +99,33 @@ def local():
 
 @app.route("/upload/web", methods=['POST'])
 def web():
-    response = urllib.urlopen(request.form['link'])
-    image = response.read()
-    with open(path+"/"+request.form['filename']+".jpg","wb") as out:
-        out.write(image)
-        return render_template("index.html",username=session['username'],message="Image Uploaded!", category="success")
+    if checkFile(request.form['link']):
+        ext = request.form['link'].rsplit('.',1)[1]
+        response = urllib.urlopen(request.form['link'])
+        image = response.read()
+        filename = stripPunctuation(request.form['filename'])+"."+ext
+        filename = repeatedName(filename,0,False)
+        with open(path+"/"+filename,"wb") as out:
+            out.write(image)
+            return render_template("index.html",username=session['username'],message="Image Uploaded!", category="success")
     return render_template("upload.html",upload="True",message="Invalid File",category="danger")
 
+def stripPunctuation(name):
+    for p in string.punctuation:
+        name=name.replace(p,"")
+    return name
+
+def repeatedName(name,num,looped):
+    
+    if name in os.listdir(path):
+        if looped:
+            name = name.rsplit('.',1)[0][:-(len(str(num)))]+"."+name.rsplit('.',1)[1]
+        print name
+        name = name.rsplit('.',1)[0]+str(num)+"."+name.rsplit('.',1)[1]
+        num += 1
+        print name + ", " + str(num)
+        return repeatedName(name,num,True)
+    return name
 
 if __name__=="__main__":
     if not os.path.exists("data.db"):

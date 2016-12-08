@@ -19,9 +19,13 @@
     <div class="col-md-6">
       <form method='POST' action="/upload/web">
 	<h4>Upload From Internet</h4><br><br>
-	Image Link: <input type="text" name="link" placeholder="Enter image link" required><br><br>
-	Image Name: <input type="text" name="filename" placeholder="Enter image name" required><br><br>
-	<input type="submit" value="Upload">
+	<div class="form-group">
+	  <div class="col-xs-6">
+	    Image Link: <input type="text" name="link" placeholder="Enter image link" class="form-control" required><br><br>
+	    Image Name: <input type="text" name="filename" placeholder="Punctuation will be removed" class="form-control" required><br><br>
+	    <input type="submit" value="Upload">
+	  </div>
+	</div>
       </form>
     </div>
   </div>
