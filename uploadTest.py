@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, redirect, url_for#, send_from_directory <-- Unnecessary?
 from werkzeug.utils import secure_filename
-import urllib.request
+import urllib
 
 app = Flask(__name__)
 path="data"
@@ -20,10 +20,12 @@ def checkFile(filename):
 def upload():
     if request.method == 'POST':
         file = request.files['file']
-        if file.filename == "":
-            print "LINK"
+        if file.filename == "" and not(request.form['link'] == ""):
             print request.form['link']
-            urlretrieve(request.form['link'],"test.jpg")
+            response = urllib.urlopen(request.form['link'])
+            image = response.read()
+            with open(path+"/"+"test.jpg","wb") as out:
+                out.write(image)
     #if file is uploaded and filename is valid, save to the specified path (directory)
         elif file and checkFile(file.filename):
             filename = secure_filename(file.filename)
