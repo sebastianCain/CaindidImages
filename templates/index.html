@@ -3,5 +3,16 @@
 <li class="greet">Hello {{username}}!</li>
 <li><a href = "/upload"> Upload </a></li>
 <li><a href = "/logout"> Logout </a></li>
+
 {% endblock %}
-Hi  
+
+{% block body %}
+
+{% for image in images %}
+<img src="{{ url_for('static', filename = "train.jpg") }}" width="100px" height="100px">
+
+{% endfor %}
+
+
+{% endblock %}
+ 

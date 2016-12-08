@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 import hashlib
 import db_builder
 import user
+import glob
 #import utils.clarifai
 
 #path for upload folder
@@ -20,7 +21,8 @@ def validate_form(form, required_keys):
 def index():
     if "username" not in session:
         return redirect(url_for("login"))
-    return render_template("index.html",username=session['username'])
+    images = glob.glob("static/*")
+    return render_template("index.html",username=session['username'], images=images)
 
 #create a new account app route
 @app.route("/register", methods=["POST", "GET"])
