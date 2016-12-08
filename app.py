@@ -21,8 +21,11 @@ def validate_form(form, required_keys):
 def index():
     if "username" not in session:
         return redirect(url_for("login"))
-    images = glob.glob("static/*")
-    return render_template("index.html",username=session['username'], images=images)
+    images = glob.glob("static/images/*")
+    ci = []
+    for i in images:
+        ci.append(i[14:])
+    return render_template("index.html",username=session['username'], images=ci)
 
 #create a new account app route
 @app.route("/register", methods=["POST", "GET"])
