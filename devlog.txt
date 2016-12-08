@@ -31,3 +31,5 @@ DEVLOG:
     Lawrence Liu:
         - Started integration between Clarifai API and app.py
         - Created tentative methods for creating a table for pictures and adding pictures to the table
+    Jiaqi Gao:
+        - Homepage displays all uploaded pictures from all users
