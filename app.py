@@ -21,6 +21,7 @@ def validate_form(form, required_keys):
 def index():
     if "username" not in session:
         return redirect(url_for("login"))
+    db_builder.create_tables(path)
     images = glob.glob("static/images/*")
     ci = []
     for i in images:
