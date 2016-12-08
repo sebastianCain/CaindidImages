@@ -4,39 +4,37 @@ Other Members: Lawrence Liu, Jiaqi Gao, Yuki Chen
 
 DEVLOG:
 
-12/2/16:
-    Sebastian Cain:
-        - created devlog and credentials files
-        - started app.py with clarifai installation and example request
+sebastianC -- 2016-12-2 13:04
+- created devlog and credentials files
+- started app.py with clarifai installation and example request
+        
+yukiC -- 2016-12-4 20:33
+- Requested Flickr API Key & Secret
+- Briefly tested out simple Flickr API use
+- Useful Flickr API Tutorial : https://github.com/alexis-mignon/python-flickr-api/wiki/Tutorial
 
-12/04/16
-    Yuki Chen:
-        - Requested Flickr API Key & Secret
-        - Briefly tested out simple Flickr API use
-        - Useful Flickr API Tutorial : https://github.com/alexis-mignon/python-flickr-api/wiki/Tutorial
+sebastianC -- 2016-12-5 13:04
+- Made the executive decision to not use the Flickr API and to use the Tinify API instead, a photo compression API
+- Changed the design doc to accomodate this change
 
-12/5/16:
-    Sebastian Cain:
-        - Made the executive decision to not use the Flickr API and to use the Tinify API instead, a photo compression API
-        - Changed the design doc to accomodate this change
-    Jiaqi Gao:
-    	- Added register and login to app.py 
-        - Includes static folder with bootstrap css
-        - Includes templates folder with a base.html and register/login pages 
+jiaqiG -- 2016-12-5 23:17
+- Added register and login to app.py 
+- Includes static folder with bootstrap css
+- Includes templates folder with a base.html and register/login pages 
 
-12/6/16:
-    Yuki Chen:
-        - Testing out how to upload image locally (Thanks to Lawrence for debugging)
-        - Incorporated uploading function to app.py
-        - Created html for uploading new image
-        - Little changes to other html pages
+yukiC -- 2016-12-6 18:50
+- Testing out how to upload image locally (Thanks to Lawrence for debugging)
+- Incorporated uploading function to app.py
+- Created html for uploading new image
+- Little changes to other html pages
 
-12/7/16:
-    Lawrence Liu:
-        - Started integration between Clarifai API and app.py
-        - Created tentative methods for creating a table for pictures and adding pictures to the table
-    Jiaqi Gao:
-        - Homepage displays all uploaded pictures from all users
-    Yuki Chen:
-        - Tested out how to allow users to upload image with a link
-        - Made link upload more robust(generate new filename if already exist, check if link is a picture of accepted format)
+lawrenceL -- 2016-12-7 22:10
+- Started integration between Clarifai API and app.py
+- Created tentative methods for creating a table for pictures and adding pictures to the table
+        
+jiaqiG -- 2016-12-8 13:19
+- Homepage displays all uploaded pictures from all users
+
+yukiC -- 2016-12-8 18:01
+- Tested out how to allow users to upload image with a link
+- Made link upload more robust(generate new filename if already exist, check if link is a picture of accepted format)
