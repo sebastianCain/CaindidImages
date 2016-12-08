@@ -8,19 +8,21 @@
 <h3> Upload A New Image </h3>
 </center>
 <br><br>
-<form method='POST' action="/upload" enctype="multipart/form-data">
-  <div class="row">
+<div class="row">
     <div class="col-md-6">
-      <h4>Upload From My Machine</h4><br><br>
-      <input type="file" name="file"><br><br>
-      <input type="submit" value="Upload">
+      <form method='POST' action="/upload/local" enctype="multipart/form-data">
+	<h4>Upload From My Machine</h4><br><br>
+	<input type="file" name="file"><br><br>
+	<input type="submit" value="Upload">
+      </form>
     </div>
     <div class="col-md-6">
-      <h4>Upload From Internet</h4><br><br>
-      Image Link: <input type="text" name="link" placeholder="Enter image link" required><br><br>
-      Image Name: <input type="text" name="filename" placeholder="Enter image name" required><br><br>
-      <input type="submit" value="Upload">
+      <form method='POST' action="/upload/web">
+	<h4>Upload From Internet</h4><br><br>
+	Image Link: <input type="text" name="link" placeholder="Enter image link" required><br><br>
+	Image Name: <input type="text" name="filename" placeholder="Enter image name" required><br><br>
+	<input type="submit" value="Upload">
+      </form>
     </div>
   </div>
-</form>
 {% endblock %}

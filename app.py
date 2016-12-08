@@ -80,27 +80,30 @@ def checkFile(filename):
     return '.' in filename and filename.rsplit('.',1)[1] in extensions
 
 #generate either html for user to upload image OR to save uploaded image
-@app.route("/upload", methods=['GET','POST'])
-def upload():
-    if request.method == "GET":
-        return render_template("upload.html",upload="True")
-    elif request.method == "POST":
-        file = request.files['file']
-        if file and checkFile(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(path,filename))
-            #tags = utils.clarifai.requestTags(filename)
-            #Add tags to table- work in progress
-            #add_pic(path+"/"+filename, uid????, tags)
-            #a way to add tags one by one since the variable tags is a dict?
-            return render_template("index.html",username=session['username'],message="Image Uploaded!",category="success")
-        if not(request.form['link']==""):
-            response = urllib.urlopen(request.form['link'])
-            image = response.read()
-            with open(path+"/"+request.form['filename']+".jpg","wb") as out:
-                out.write(image)
-            return render_template("index.html",username=session['username'],message="Image Uploaded!", category="success")
+@app.route("/upload")
+def upload_local():
+    return render_template("upload.html",upload="True")
 
+@app.route("/upload/local", methods=['POST'])
+def local():
+    file = request.files['file']
+    if file and checkFile(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(path,filename))
+        #tags = utils.clarifai.requestTags(filename)
+        #Add tags to table- work in progress
+        #add_pic(path+"/"+filename, uid????, tags)
+        #a way to add tags one by one since the variable tags is a dict?
+        return render_template("index.html",username=session['username'],message="Image Uploaded!",category="success")
+    return render_template("upload.html",upload="True",message="Invalid File",category="danger")
+
+@app.route("/upload/web", methods=['POST'])
+def web():
+    response = urllib.urlopen(request.form['link'])
+    image = response.read()
+    with open(path+"/"+request.form['filename']+".jpg","wb") as out:
+        out.write(image)
+        return render_template("index.html",username=session['username'],message="Image Uploaded!", category="success")
     return render_template("upload.html",upload="True",message="Invalid File",category="danger")
 
 
