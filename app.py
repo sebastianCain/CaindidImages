@@ -1,11 +1,11 @@
 from flask import abort, Flask, render_template, request, redirect, url_for, session
-import datetime, os
+import datetime, os, urllib
 from werkzeug.utils import secure_filename
 
 import hashlib
 import db_builder
 import user
-import utils.clarifai
+#import utils.clarifai
 
 #path for upload folder
 path = "images"
@@ -94,7 +94,14 @@ def upload():
             #add_pic(path+"/"+filename, uid????, tags)
             #a way to add tags one by one since the variable tags is a dict?
             return render_template("index.html",username=session['username'],message="Image Uploaded!",category="success")
-        return render_template("upload.html",upload="True",message="Invalid File",category="danger")
+        if not(request.form['link']==""):
+            response = urllib.urlopen(request.form['link'])
+            image = response.read()
+            with open(path+"/"+request.form['filename']+".jpg","wb") as out:
+                out.write(image)
+            return render_template("index.html",username=session['username'],message="Image Uploaded!", category="success")
+
+    return render_template("upload.html",upload="True",message="Invalid File",category="danger")
 
 
 if __name__=="__main__":
