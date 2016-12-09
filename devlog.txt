@@ -47,3 +47,7 @@ yukiC -- 2016-12-8 18:01
 
 lawrenceL -- 2016-12-8 13:51
 - Fixed devlog format
+
+jiaqiG -- 2016-12-9 01:28
+- Organized image formatting
+- Started on pagination
