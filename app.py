@@ -21,7 +21,6 @@ def validate_form(form, required_keys):
 def index():
     if "username" not in session:
         return redirect(url_for("login"))
-    db_builder.create_tables(path)
     images = glob.glob("static/images/*")
     ci = []
     for i in images:
@@ -100,6 +99,8 @@ def local():
         #Add tags to table- work in progress
         #add_pic(path+"/"+filename, uid????, tags)
         #a way to add tags one by one since the variable tags is a dict?
+        uid = user.get_UID(session['username'])
+        user.add_pic(os.path.join(path,filename),uid)
         return render_template("index.html",username=session['username'],message="Image Uploaded!",category="success")
     return render_template("upload.html",upload="True",message="Invalid File",category="danger")
 

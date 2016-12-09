@@ -7,9 +7,8 @@ def add_user(username, password):
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
 
-    query = "INSERT INTO users VALUES (NULL, ?, ?)"
+    query = "INSERT INTO users (username, password) VALUES (?, ?)"
     c.execute(query, (username, hashlib.sha1(password).hexdigest()))
-
     db.commit()
     db.close()
 
@@ -33,6 +32,12 @@ def get_user(**kwargs):
     db.close()
     return result
 
+def get_UID(username):
+    db = sqlite3.connect(DATABASE)
+    c = db.cursor()
+    c.execute("SELECT id FROM users WHERE username = '" + username + "'")
+    return c.fetchone()[0]
+
 def get_stories(uid):
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
@@ -53,11 +58,14 @@ def get_info(uid):
         }
     return info
 
-'''def add_pic(link,uid,tags):
+#For now, only work with parameters path and uid
+def add_pic(path,uid):
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
 
-    query = "INSERT INTO pics VALUES (link, uid, tags)"
-    c.execute(query)
+    query = "INSERT INTO pics (path,userID) VALUES (?, ?)"
+    c.execute(query,(path,uid))
 
-    something like this'''
+    db.commit()
+    db.close()
+    
