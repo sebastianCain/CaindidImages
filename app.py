@@ -9,7 +9,7 @@ import glob
 #import utils.clarifai
 
 #path for upload folder
-path = "images"
+path = "static/images"
 app = Flask(__name__)
 
 def validate_form(form, required_keys):
@@ -93,7 +93,9 @@ def upload_local():
 def local():
     file = request.files['file']
     if file and checkFile(file.filename):
-        filename = secure_filename(request.form['filename']+"."+file.filename.rsplit('.',1)[1])
+        name = stripPunctuation(request.form['filename'])
+        ext = file.filename.rsplit('.',1)[1]
+        filename = secure_filename(name+"."+ext)
         filename = repeatedName(filename,0,False)
         file.save(os.path.join(path,filename))
         #tags = utils.clarifai.requestTags(filename)
@@ -112,6 +114,7 @@ def web():
         response = urllib.urlopen(request.form['link'])
         image = response.read()
         filename = stripPunctuation(request.form['filename'])+"."+ext
+        filename = secure_filename(filename)
         filename = repeatedName(filename,0,False)
         with open(path+"/"+filename,"wb") as out:
             out.write(image)
@@ -124,7 +127,6 @@ def stripPunctuation(name):
     return name
 
 def repeatedName(name,num,looped):
-    
     if name in os.listdir(path):
         if looped:
             name = name.rsplit('.',1)[0][:-(len(str(num)))]+"."+name.rsplit('.',1)[1]
