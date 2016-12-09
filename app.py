@@ -93,7 +93,8 @@ def upload_local():
 def local():
     file = request.files['file']
     if file and checkFile(file.filename):
-        filename = secure_filename(file.filename)
+        filename = secure_filename(request.form['filename']+"."+file.filename.rsplit('.',1)[1])
+        filename = repeatedName(filename,0,False)
         file.save(os.path.join(path,filename))
         #tags = utils.clarifai.requestTags(filename)
         #Add tags to table- work in progress
