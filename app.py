@@ -1,7 +1,5 @@
-from flask import abort, Flask, render_template, g, request, current_app, redirect, url_for, session, Blueprint
-from flask_paginate import Pagination, get_page_args
+from flask import abort, Flask, render_template, request, redirect, url_for, session
 import datetime, os, urllib, string
-import sqlite3
 from werkzeug.utils import secure_filename
 
 import hashlib
@@ -18,76 +16,17 @@ def validate_form(form, required_keys):
     """ Check if a dictionary contains all the required keys """
     return set(required_keys) <= set(form)
 
-@app.before_request
-def before_request():
-    g.conn = sqlite3.connect('data.db')
-    g.conn.row_factory = sqlite3.Row
-    g.cur = g.conn.cursor()
-
-
-@app.teardown_request
-def teardown(error):
-    if hasattr(g, 'conn'):
-        g.conn.close()
-
-
-
 #login route
 @app.route("/", methods=["POST", "GET"])
 def index():
     if "username" not in session:
         return redirect(url_for("login"))
-    per_page = 5
-    page, per_page, offset = get_page_args()
-    sql = 'select path from pics order by path limit {}, {}'\
-        .format(offset, per_page)
-    g.cur.execute(sql)
-    images = g.cur.fetchall()
-    
-    
-    pagination = get_pagination(page=page,
-                                per_page=per_page,
-                                record_name='images',
-                                format_total=True,
-                                format_number=True,
-                                )
-    return render_template('index.html', images=images,
-                           page=page,
-                           per_page=per_page,
-                           pagination=pagination,
-                           )
+    images = glob.glob("static/images/*")
+    ci = []
+    for i in images:
+        ci.append(i[13:])
+    return render_template("index.html",username=session['username'], images=ci)
 
-
-@app.route('/images/', defaults={'page': 1})
-@app.route('/images', defaults={'page': 1})
-@app.route('/images/page/<int:page>/')
-@app.route('/images/page/<int:page>')
-def images(page):
-    per_page = 5
-    page, per_page, offset = get_page_args()
-    sql = 'select path from pics order by path limit {}, {}'\
-        .format(offset, per_page)
-    g.cur.execute(sql)
-    images = g.cur.fetchall()
-    pagination = get_pagination(page=page,
-                                per_page=per_page,
-                                record_name='images',
-                                format_total=True,
-                                format_number=True,
-                                )
-    return render_template('index.html', images=images,
-                           page=page,
-                           per_page=per_page,
-                           pagination=pagination,
-                           active_url='images-page-url',
-                           )
-    #images = glob.glob("static/images/*")
-    #ci = []
-    #for i in images:
-     #   ci.append(i[13:])
-
-
-    
 #create a new account app route
 @app.route("/register", methods=["POST", "GET"])
 def register():
@@ -177,30 +116,11 @@ def web():
             out.write(image)
             return render_template("index.html",username=session['username'],message="Image Uploaded!", category="success")
     return render_template("upload.html",upload="True",message="Invalid File",category="danger")
-def get_link_size():
-    return current_app.config.get('LINK_SIZE', 'sm')
-
-
-def show_single_page_or_not():
-    return current_app.config.get('SHOW_SINGLE_PAGE', False)
-
-
-def get_css_framework():
-    return current_app.config.get('CSS_FRAMEWORK', 'bootstrap3')
 
 def stripPunctuation(name):
     for p in string.punctuation:
         name=name.replace(p,"")
     return name
-
-def get_pagination(**kwargs):
-    kwargs.setdefault('record_name', 'records')
-    return Pagination(css_framework=get_css_framework(),
-                      link_size=get_link_size(),
-                      show_single_page=show_single_page_or_not(),
-                      **kwargs
-                      )
-
 
 def repeatedName(name,num,looped):
     

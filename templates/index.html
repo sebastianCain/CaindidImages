@@ -7,35 +7,12 @@
 {% endblock %}
 
 {% block body %}
-<!--
-{% for image in images %}
-
-
-{% endfor %}
--->
-{% if images %}
- 
 
 {% for image in images %}
-<img src="{{ url_for('static', filename = image[0]) }}">
-<img src="../static/images/train.jpg">
-<img src="../static/images/train.jpg">
-<img src="../static/images/train.jpg">
-<img src="../static/images/train.jpg">
-<img src="../static/images/train.jpg">
-
+<img src="{{ url_for('static', filename = 'images' + image) }}">
 
 {% endfor %}
-{{ pagination.links }}
-{% endif %}
 
-{% endblock %}
 
-{% block js %}
-  {% if active_url %}
-    $('#{{ active_url }}').addClass('active');
-  {% else %}
-  $('#images-url').addClass('active');
-  {% endif %}
 {% endblock %}
  
