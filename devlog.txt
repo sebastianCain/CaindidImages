@@ -48,6 +48,10 @@ yukiC -- 2016-12-8 18:01
 lawrenceL -- 2016-12-8 13:51
 - Fixed devlog format
 
+yukiC -- 2016-12-8 21:25
+- Adding on to existing database (testing out userID special to every created user account; store image with its folder path and uploader's userID)
+- Slight modification on upload.html appearance
+
 jiaqiG -- 2016-12-9 01:28
 - Organized image formatting
 - Started on pagination
