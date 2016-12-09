@@ -2,12 +2,13 @@
 
 body {
     font-family: 'Prociono', serif;
+    text-align: center;
 }
 
 .panel-body  {
     word-break: break-all;
+    
 }		    
-
 
 .story-title{
     font-family: 'Amatic SC', cursive;
@@ -23,4 +24,16 @@ li.greet {
     font-weight: bold;
     color:#4c5760;
     line-height:2em;
+}
+
+img {
+    border-radius: 1em;
+    width: 200px;
+    length: 200px;
+    
+}
+
+img:hover {
+    opacity: 0.6;
+    filter: blur(1px);
 }
