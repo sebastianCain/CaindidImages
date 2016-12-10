@@ -23,11 +23,19 @@ def index():
         return redirect(url_for("login"))
     images = glob.glob("static/images/*")
     ci = []
+    modals = []
     for i in images:
-        ci.append(i[13:])
+        image = i[13:]
+        target = "#"+i[14:]
+        target= target[:-4]
+        imageAndTarget = [image,target]
+        ci.append(imageAndTarget)
+        modals.append([target[1:],"/"+i])
         print i
-        print url_for('static',filename='images'+i)
-    return render_template("index.html",username=session['username'], images=ci)
+    print ci
+    print modals
+    return render_template("index.html",username=session['username'], images=ci, modals=modals)
+
 
 #create a new account app route
 @app.route("/register", methods=["POST", "GET"])

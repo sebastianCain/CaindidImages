@@ -2,6 +2,7 @@
 
 {% block head %}
 <style>
+
   .modal.fade .modal-dialog{
     width:90%;
 }
@@ -9,6 +10,24 @@
   .modal-body{
     margin:3%;
   }
+
+.index {
+    border-radius: 1em;
+    width: 200px;
+    height: 200px;
+    
+}
+.equal-height{
+  display:table;
+  padding:25px;
+}
+
+.equal-height [class*="col-"]{
+  float:none;
+  display:table-cell;
+  vertical-align:top;
+}
+
 </style>
 {% endblock %}
 
@@ -20,25 +39,43 @@
 {% endblock %}
 
 {% block body %}
+<div class="container">
+<div class="row equal-height">
+{% set colCount = 0 %}
 
 {% for image in images %}
-<img class="index" src="{{ url_for('static', filename = 'images' + image) }}"></img>
-<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#imgModal">View</button>
-{% endfor %}
 
-<!-- Modal for displaying picture lightbox --!>
-<div class="modal fade" id="imgModal" role="dialog">
+<div class="col-md-3">
+<img class="index" src="{{ url_for('static', filename = 'images' + image[0]) }}"></img><br>
+<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="{{ image[1] }}">View</button>
+<br><br>
+</div>
+{% set colCount = colCount + 1 %}
+{% if colCount == 5 %}
+  </div>
+  <div class="row equal-height">
+  {% set colCount = 0 %}
+{% endif %}
+
+{% endfor %}
+</div>
+</div>
+
+{% for modal in modals %}
+
+<div class="modal fade" id="{{ modal[0] }}" role="dialog">
   <div class="modal-dialog">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal">&times;</button>
     </div>
     <div class="modal-content">
       <div class="modal-body">
-	<img src="/static/images/IMG_2273.JPG">
+	<img src="{{ modal[1] }}">
       </div>
     </div>
   </div>
 </div>
- 
+{% endfor %}
+
 {% endblock %}
  
