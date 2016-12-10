@@ -1,4 +1,17 @@
 {% extends "base.html" %}
+
+{% block head %}
+<style>
+  .modal.fade .modal-dialog{
+    width:90%;
+}
+  
+  .modal-body{
+    margin:3%;
+  }
+</style>
+{% endblock %}
+
 {% block navbar %}
 <li class="greet">Hello {{username}}!</li>
 <li><a href = "/upload"> Upload </a></li>
@@ -9,10 +22,23 @@
 {% block body %}
 
 {% for image in images %}
-<img src="{{ url_for('static', filename = 'images' + image) }}">
-
+<img src="{{ url_for('static', filename = 'images' + image) }}"></img>
+<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#imgModal">View</button>
 {% endfor %}
 
-
+<!-- Modal for displaying picture lightbox --!>
+<div class="modal fade" id="imgModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="modal-content">
+      <div class="modal-body">
+	<img src="/static/images/allnighter2.jpg">
+      </div>
+    </div>
+  </div>
+</div>
+ 
 {% endblock %}
  

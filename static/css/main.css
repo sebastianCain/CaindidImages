@@ -37,3 +37,9 @@ img:hover {
     opacity: 0.6;
     filter: blur(1px);
 }
+
+.modal.fade .modal-dialog{
+    width:90%;
+    top:20%;
+    left:5%;
+}

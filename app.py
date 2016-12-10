@@ -25,6 +25,8 @@ def index():
     ci = []
     for i in images:
         ci.append(i[13:])
+        print i
+        print url_for('static',filename='images'+i)
     return render_template("index.html",username=session['username'], images=ci)
 
 #create a new account app route
