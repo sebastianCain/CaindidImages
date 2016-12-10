@@ -29,8 +29,7 @@ li.greet {
 .index {
     border-radius: 1em;
     width: 200px;
-    length: 200px;
-    
+    height: 200px;
 }
 
 img:hover {
@@ -44,4 +43,15 @@ img:hover {
 
 .modal-body{
     margin:4%;
+}
+
+.equal-height{
+  display:table;
+  padding:25px;
+}
+
+.equal-height [class*="col-"]{
+  float:none;
+  display:table-cell;
+  vertical-align:top;
 }

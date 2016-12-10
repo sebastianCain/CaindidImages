@@ -31,9 +31,6 @@ def index():
         imageAndTarget = [image,target]
         ci.append(imageAndTarget)
         modals.append([target[1:],"/"+i])
-        print i
-    print ci
-    print modals
     return render_template("index.html",username=session['username'], images=ci, modals=modals)
 
 
