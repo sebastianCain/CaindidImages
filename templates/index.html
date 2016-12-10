@@ -22,7 +22,7 @@
 {% block body %}
 
 {% for image in images %}
-<img src="{{ url_for('static', filename = 'images' + image) }}"></img>
+<img class="index" src="{{ url_for('static', filename = 'images' + image) }}"></img>
 <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#imgModal">View</button>
 {% endfor %}
 
@@ -34,7 +34,7 @@
     </div>
     <div class="modal-content">
       <div class="modal-body">
-	<img src="/static/images/allnighter2.jpg">
+	<img src="/static/images/IMG_2273.JPG">
       </div>
     </div>
   </div>
