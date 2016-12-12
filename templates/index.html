@@ -34,10 +34,15 @@
 -->
 
 {% block navbar %}
-<li class="greet">Hello {{username}}!</li>
+{% if username %}
 <li><a href = "/upload"> Upload </a></li>
 <li><a href = "/logout"> Logout </a></li>
 
+
+{% else %}
+<li><a href="/register">Register</a></li>
+<li><a href="/login">Login</a></li>
+{% endif %}
 {% endblock %}
 
 {% block body %}

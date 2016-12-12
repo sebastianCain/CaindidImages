@@ -18,8 +18,6 @@ def validate_form(form, required_keys):
 #login route
 @app.route("/", methods=["POST", "GET"])
 def index():
-    if "username" not in session:
-        return redirect(url_for("login"))
     images = glob.glob("static/images/*")
     ci = []
     modals = []
@@ -30,6 +28,8 @@ def index():
         imageAndTarget = [image,target]
         ci.append(imageAndTarget)
         modals.append([target[1:],"/"+i])
+    if "username" not in session:
+        return render_template("index.html", images=ci, modals=modals)
     return render_template("index.html",username=session['username'], images=ci, modals=modals)
 
 
