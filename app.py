@@ -22,7 +22,8 @@ def validate_form(form, required_keys):
 #login route
 @app.route("/", methods=["POST", "GET"])
 def index():
-    u = urllib2.urlopen("https://api.clarifai.com/v1/token/client_id={" + CLIENT_ID + "}&client_secret={" + CLIENT_SECRET + "}&grant_type=client_credentials")
+    #u = urllib2.urlopen("https://api.clarifai.com/v1/token?client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&grant_type=client_credentials")
+    u = urllib2.urlopen("https://" + CLIENT_ID + ":" + CLIENT_SECRET + "@api.clarifai.com/v1/token/grant_type=client_credentials"
     response = u.read()
     data = json.loads(response)
     print(data)
