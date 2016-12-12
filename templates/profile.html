@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+
+{% block navbar %}
+<li><a class="nav item nav-link" href = "/profile"> Profile </a></li>
+<li><a class="nav-item nav-link" href = "/upload"> Upload </a></li>
+<li><a class="nav-item nav-link" href = "/logout"> Logout </a></li>
+{% endblock %}
+
+{% block body %}
+<center>
+<h1> Profile </h1>
+<br>
+<h5> Hello, {{username}}! </h5>
+</center>
+{% endblock %}

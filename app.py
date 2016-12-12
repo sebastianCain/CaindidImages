@@ -143,6 +143,16 @@ def repeatedName(name,num,looped):
         return repeatedName(name,num,True)
     return name
 
+#Profile HTML
+@app.route("/profile")
+def profile():
+    if 'username' in session:
+        
+        return render_template("profile.html", username=session['username'])
+    return redirect(url_for("login"))
+
+
+
 if __name__=="__main__":
     if not os.path.exists("data.db"):
         db_builder.create_tables()
