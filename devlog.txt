@@ -56,6 +56,9 @@ jiaqiG -- 2016-12-9 01:28
 - Organized image formatting
 - Started on pagination
 
+lawrenceL -- 2016-12-9 18:04
+- Started getting tags from an image with Clarifai API
+
 yukiC -- 2016-12-10 15:34
 - Use modal to show actual-size image when user clicks on "view" button
 - Clean up index.html format into table-ish appearance

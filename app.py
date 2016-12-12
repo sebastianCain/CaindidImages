@@ -6,7 +6,6 @@ import hashlib
 import db_builder
 import user
 import glob
-#import utils.clarifai
 
 #path for upload folder
 path = "static/images"
