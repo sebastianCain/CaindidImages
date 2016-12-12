@@ -1,47 +1,18 @@
 {% extends "base.html" %}
 
-<!-- my computer seems to be unable to get updated main.css, so I just put the new styling here, please ignored
 {% block head %}
-<style>
 
-  .modal.fade .modal-dialog{
-    width:90%;
-}
-  
-  .modal-body{
-    margin:3%;
-  }
-
-.index {
-    border-radius: 1em;
-    width: 200px;
-    height: 200px;
-    
-}
-.equal-height{
-  display:table;
-  padding:25px;
-}
-
-.equal-height [class*="col-"]{
-  float:none;
-  display:table-cell;
-  vertical-align:top;
-}
-
-</style>
 {% endblock %}
--->
 
 {% block navbar %}
 {% if username %}
-<li><a href = "/upload"> Upload </a></li>
-<li><a href = "/logout"> Logout </a></li>
+<li><a class="nav-item nav-link" href = "/upload"> Upload </a></li>
+<li><a class="nav-item nav-link" href = "/logout"> Logout </a></li>
 
 
 {% else %}
-<li><a href="/register">Register</a></li>
-<li><a href="/login">Login</a></li>
+<li><a class="nav-item nav-link" href="/register">Register</a></li>
+<li><a class="nav-item nav-link" href="/login">Login</a></li>
 {% endif %}
 {% endblock %}
 
@@ -55,9 +26,10 @@
 <div class="col-md-3">
   <a href="{{ url_for('static', filename = 'images' + image[0])}}" data-lightbox="image[0]">
 <img class="index" src="{{ url_for('static', filename = 'images' + image[0]) }}"></img></a>
+
 </div>
 {% set colCount = colCount + 1 %}
-{% if colCount == 5 %}
+{% if colCount == 1 %}
   </div>
   <div class="row equal-height">
   {% set colCount = 0 %}

@@ -2,7 +2,6 @@
 
 body {
     font-family: 'Prociono', serif;
-    text-align: center;
 }
 
 .panel-body  {
@@ -55,3 +54,5 @@ img:hover {
   display:table-cell;
   vertical-align:top;
 }
+
+
