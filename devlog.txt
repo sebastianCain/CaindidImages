@@ -68,3 +68,7 @@ jiaqiG -- 2016-12-10 23:35
 
 lawrenceL -- 2016-12-11 22:52
 - Started functionality of tagging with app.py and uploaded images
+
+jiaqiG -- 2016-12-11 23:30
+- Changed access to pictures for non-users
+- Worked on infinite scrolling
