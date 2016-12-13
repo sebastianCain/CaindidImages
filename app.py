@@ -159,9 +159,8 @@ def profile():
         paths = []
         uid = user.get_UID(session['username'])
         paths = user.get_pics(uid)
-        return render_template("profile.html",paths=paths)
+        return render_template("profile.html",paths=paths,username=session['username'])
     return redirect(url_for("login"))
-
 
 if __name__=="__main__":
     if not os.path.exists("data.db"):
