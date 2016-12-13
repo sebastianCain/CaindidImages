@@ -23,10 +23,10 @@ def validate_form(form, required_keys):
 @app.route("/", methods=["POST", "GET"])
 def index():
     #u = urllib2.urlopen("https://api.clarifai.com/v1/token?client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&grant_type=client_credentials")
-    u = urllib2.urlopen("https://" + CLIENT_ID + ":" + CLIENT_SECRET + "@api.clarifai.com/v1/token/grant_type=client_credentials"
-    response = u.read()
-    data = json.loads(response)
-    print(data)
+    #u = urllib2.urlopen("https://" + CLIENT_ID + ":" + CLIENT_SECRET + "@api.clarifai.com/v1/token/grant_type=client_credentials")
+    #response = u.read()
+    #data = json.loads(response)
+    #print(data)
     
     images = glob.glob("static/images/*")
     ci = []
@@ -152,6 +152,16 @@ def repeatedName(name,num,looped):
         print name + ", " + str(num)
         return repeatedName(name,num,True)
     return name
+
+@app.route("/profile")
+def profile():
+    if 'username' in session:
+        paths = []
+        uid = user.get_UID(session['username'])
+        paths = user.get_pics(uid)
+        return render_template("profile.html",paths=paths)
+    return redirect(url_for("login"))
+
 
 if __name__=="__main__":
     if not os.path.exists("data.db"):
