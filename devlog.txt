@@ -72,3 +72,7 @@ lawrenceL -- 2016-12-11 22:52
 jiaqiG -- 2016-12-11 23:30
 - Changed access to pictures for non-users
 - Worked on infinite scrolling
+
+lawrenceL -- 2016-12-12 20:53
+- Small issue with Clarifai API and access token, access tokens expire and it's difficult to request new ones automatically without having clarifai installed
+- Started Tinify API integration, can be integrated into app.py once url is solidified
