@@ -26,9 +26,9 @@ li.greet {
 }
 
 .index {
-    border-radius: 1em;
-    width: 200px;
-    height: 200px;
+    padding: 4.5em;
+    align-text: center;
+
 }
 
 img:hover {
