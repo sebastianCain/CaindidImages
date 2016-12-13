@@ -7,3 +7,10 @@ def uploadPic (url, filename):
     data = json.loads(response)
     return data["source"]["url"]
 #Not sure that's the right link, refer to https://tinypng.com/developers/reference
+
+'''
+curl https://api.tinify.com/shrink \
+     --user api:YOUR_API_KEY \
+     --data-binary @unoptimized.jpg \
+     --dump-header /dev/stdout
+'''
