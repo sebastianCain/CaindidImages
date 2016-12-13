@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
 {% block head %}
-
+	<script src="/static/js/lazyload.js"></script>
 {% endblock %}
 
 {% block navbar %}
 {% if username %}
-
 <li><a class="nav-item nav-link" href = "/profile"> Profile </a></li>
 <li><a class="nav-item nav-link" href = "/upload"> Upload </a></li>
 <li><a class="nav-item nav-link" href = "/logout"> Logout </a></li>
+
 
 {% else %}
 <li><a class="nav-item nav-link" href="/register">Register</a></li>
@@ -19,42 +19,25 @@
 
 {% block body %}
 <div class="container">
-<div class="row equal-height">
-{% set colCount = 0 %}
+   
+    {% for image in images %}
 
-{% for image in images %}
-
-<div class="col-md-3">
-  <a href="{{ url_for('static', filename = 'images' + image[0])}}" data-lightbox="image[0]">
-<img class="index lazy" data-src="{{ url_for('static', filename = 'images' + image[0]) }}" src="/static/ajax-loader.gif"></img></a>
-
-</div>
-{% set colCount = colCount + 1 %}
-{% if colCount == 4 %}
-  </div>
-  <div class="row equal-height">
-  {% set colCount = 0 %}
-{% endif %}
-
-{% endfor %}
-</div>
+  
+	<a href="{{ url_for('static', filename = 'images' + image[0])}}" data-lightbox="image[0]">
+	  <img class="index lazy" src="/static/js/ajax-loader.gif" data-original="{{ url_for('static', filename = 'images' + image[0]) }}" width="200" height="200"></img></a>
+<br><br><br><br>
+    {% endfor %}
+  
 </div>
 
-{% for modal in modals %}
 
-<div class="modal fade" id="{{ modal[0] }}" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal">&times;</button>
-    </div>
-    <div class="modal-content">
-      <div class="modal-body">
-	<img src="{{ modal[1] }}">
-      </div>
-    </div>
-  </div>
-</div>
-{% endfor %}
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+     $("img.lazy").lazyload({
+         effect : "fadeIn"
+     });
 
+  });
+  </script>
 {% endblock %}
  

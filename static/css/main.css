@@ -25,10 +25,9 @@ li.greet {
     line-height:2em;
 }
 
-.index {
-    padding: 4.5em;
-    align-text: center;
-
+.img {
+    padding: 1em;
+    border-radius: 1em;
 }
 
 img:hover {
