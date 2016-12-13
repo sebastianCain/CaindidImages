@@ -68,15 +68,12 @@ def add_pic(path,uid):
 
     db.commit()
     db.close()
-    
 
-def getPics(uid):
-    paths = []
+    def get_pics(uid):
     db = sqlite3.connect(DATABASE)
-    c = db.cursor
-
-    query = "SELECT path FROM pics WHERE userID = "+uid
-    c.execute(query)
-
+    c = db.cursor()
+    query = "SELECT path FROM pics WHERE userID = ?"
+    c.execute(query,(uid,))
     paths = c.fetchall()
-    print paths
+    return paths
+

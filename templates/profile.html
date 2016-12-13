@@ -1,7 +1,6 @@
-{% extends "index.html" %}
-
+{% extends "base.html" %}
 {% block navbar %}
-<li><a class="nav item nav-link" href = "/profile"> Profile </a></li>
+<li><a class="nav-item nav-link" href = "/"> Back </a><li>
 <li><a class="nav-item nav-link" href = "/upload"> Upload </a></li>
 <li><a class="nav-item nav-link" href = "/logout"> Logout </a></li>
 {% endblock %}
@@ -12,4 +11,25 @@
 <br>
 <h5> Hello, {{username}}! </h5>
 </center>
+<div class="container">
+<div class="row equal-height">
+{% set colCount = 0 %}
+
+{% for path in paths %}
+
+<div class="col-md-3">
+  <a href="{{ path[0] }}" data-lightbox="image[0]">
+<img class="index" src="{{ path[0] }}"></img></a>
+</div>
+
+{% set colCount = colCount + 1 %}
+{% if colCount == 4 %}
+  </div>
+  <div class="row equal-height">
+  {% set colCount = 0 %}
+{% endif %}
+
+{% endfor %}
+</div>
+</div>
 {% endblock %}

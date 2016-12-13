@@ -6,7 +6,8 @@
 
 {% block navbar %}
 {% if username %}
-<li><a class="nav item nav-link" href = "/profile"> Profile </a></li>
+
+<li><a class="nav-item nav-link" href = "/profile"> Profile </a></li>
 <li><a class="nav-item nav-link" href = "/upload"> Upload </a></li>
 <li><a class="nav-item nav-link" href = "/logout"> Logout </a></li>
 
@@ -25,11 +26,11 @@
 
 <div class="col-md-3">
   <a href="{{ url_for('static', filename = 'images' + image[0])}}" data-lightbox="image[0]">
-<img class="index" src="{{ url_for('static', filename = 'images' + image[0]) }}"></img></a>
+<img class="index lazy" data-src="{{ url_for('static', filename = 'images' + image[0]) }}" src="/static/ajax-loader.gif"></img></a>
 
 </div>
 {% set colCount = colCount + 1 %}
-{% if colCount == 1 %}
+{% if colCount == 4 %}
   </div>
   <div class="row equal-height">
   {% set colCount = 0 %}
