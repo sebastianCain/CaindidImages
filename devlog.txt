@@ -76,3 +76,8 @@ jiaqiG -- 2016-12-11 23:30
 lawrenceL -- 2016-12-12 20:53
 - Small issue with Clarifai API and access token, access tokens expire and it's difficult to request new ones automatically without having clarifai installed
 - Started Tinify API integration, can be integrated into app.py once url is solidified
+
+jiaqiG -- 2016-12-13-21:04
+- Images now load only when user scrolls to it
+- Site now shows name of image and its OP
+- Modified sql for additional data

@@ -51,7 +51,6 @@ def index():
         e.append(user.get_name("static/images"+e[0])[0][0])
         e.append(user.get_username(user.match_UID(e[1])))
     
-    print(images)
     if "username" not in session:
         return render_template("index.html", images=images)
     return render_template("index.html",username=session['username'], images=images)
@@ -174,10 +173,19 @@ def repeatedName(name,num,looped):
 @app.route("/profile")
 def profile():
     if 'username' in session:
-        paths = []
-        uid = user.get_UID(session['username'])
-        paths = user.get_pics(uid)
-        return render_template("profile.html",paths=paths,username=session['username'])
+        paths = user.get_pics(user.get_UID(session['username']))
+        images = []
+        count = 0
+        for i in paths:
+            images.append([])
+            temp = i[0][13:]
+            images[count].append(temp)
+            count = count + 1
+        for e in images:
+            e.append(user.get_name("static/images"+e[0])[0][0])
+            e.append(user.get_username(user.match_UID(e[1])))
+        
+        return render_template("profile.html",images=images,username=session['username'])
     return redirect(url_for("login"))
 
 if __name__=="__main__":

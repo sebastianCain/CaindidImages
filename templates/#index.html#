@@ -1,20 +1,23 @@
 {% extends "base.html" %}
-{% block navhead %}
+
+{% block head %}
 	<script src="/static/js/lazyload.js"></script>
 {% endblock %}
+
 {% block navbar %}
-<li><a class="nav-item nav-link" href = "/"> Back </a><li>
+{% if username %}
+<li><a class="nav-item nav-link" href = "/profile"> Profile </a></li>
 <li><a class="nav-item nav-link" href = "/upload"> Upload </a></li>
 <li><a class="nav-item nav-link" href = "/logout"> Logout </a></li>
+
+
+{% else %}
+<li><a class="nav-item nav-link" href="/register">Register</a></li>
+<li><a class="nav-item nav-link" href="/login">Login</a></li>
+{% endif %}
 {% endblock %}
 
 {% block body %}
-<center>
-<h1> Profile </h1>
-<br>
-<h5> Hello, {{username}}! </h5>
-</center>
-
 <div class="container">
    
     {% for image in images %}
@@ -37,3 +40,4 @@
   });
   </script>
 {% endblock %}
+ 
