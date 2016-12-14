@@ -38,7 +38,7 @@ def index():
     #    data = json.loads(response)
      #   access_token = data["access_token"]
     
-    utils.uploadPic("static/images/train.jpg")
+    utils.uploadPic("static/images/mrsmall.gif")
     paths = user.get_pics("all")
     images = []
     count = 0
