@@ -3,12 +3,12 @@ import os
 
 DATABASE = "data.db"
 
-def create_tables(path):
+def create_tables():
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
 
     c.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT)")
-    c.execute("CREATE TABLE IF NOT EXISTS pics (path TEXT, userID INTEGER, tags BLOB)")
+    c.execute("CREATE TABLE IF NOT EXISTS pics (path TEXT, userID INTEGER, name TEXT, tags BLOB)")
     
     db.commit()
     db.close()

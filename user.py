@@ -32,22 +32,24 @@ def get_user(**kwargs):
     db.close()
     return result
 
+def get_username(userID):
+    db = sqlite3.connect(DATABASE)
+    c = db.cursor()
+    c.execute("SELECT username FROM users WHERE id = '" + str(userID) + "'")
+    return c.fetchone()[0]
+
 def get_UID(username):
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
     c.execute("SELECT id FROM users WHERE username = '" + username + "'")
     return c.fetchone()[0]
 
-def get_stories(uid):
+def match_UID(image):
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
+    c.execute("SELECT userID FROM pics WHERE name = '" + image + "'")
+    return c.fetchone()[0]
 
-    query = "SELECT DISTINCT stories.storyid,stories.title from updates,stories WHERE userid = ? AND updates.storyid = stories.storyid"
-    c.execute(query, (uid,))
-
-    result = c.fetchall()
-    db.close()
-    return result if result else []
 
 def get_info(uid):
     results = get_user(id=uid)
@@ -59,12 +61,12 @@ def get_info(uid):
     return info
 
 #For now, only work with parameters path and uid
-def add_pic(path,uid):
+def add_pic(path,uid,name):
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
 
-    query = "INSERT INTO pics (path,userID) VALUES (?, ?)"
-    c.execute(query,(path,uid))
+    query = "INSERT INTO pics (path,userID,name) VALUES (?, ?, ?)"
+    c.execute(query,(path,uid,name))
 
     db.commit()
     db.close()
@@ -72,8 +74,20 @@ def add_pic(path,uid):
 def get_pics(uid):
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
-    query = "SELECT path FROM pics WHERE userID = ?"
-    c.execute(query,(uid,))
+    if(uid=="all"):
+        query = "SELECT path from pics"
+        c.execute(query)
+    else:
+        query = "SELECT path FROM pics WHERE userID = ?"
+        c.execute(query,(uid,))
     paths = c.fetchall()
     return paths
+
+def get_name(path):
+    db = sqlite3.connect(DATABASE)
+    c = db.cursor()
+    query = "SELECT name FROM pics WHERE path = ?"
+    c.execute(query,(path,))
+    n = c.fetchall()
+    return n
 

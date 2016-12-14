@@ -5,7 +5,6 @@ from werkzeug.utils import secure_filename
 import hashlib
 import db_builder
 import user
-import glob
 
 CLIENT_ID = "Y8pZV9ZL3UxoCsTzeg-lK4zz6nJDJmZ0bt0xheJA"
 CLIENT_SECRET = "RtqGr7kvfCdiyzCRZsJ2ElqdsjJpreydSkTCZUO4"
@@ -24,28 +23,37 @@ def validate_form(form, required_keys):
 def index():
     #u = urllib2.urlopen("https://api.clarifai.com/v1/token?client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&grant_type=client_credentials")
     #u = urllib2.urlopen("https://" + CLIENT_ID + ":" + CLIENT_SECRET + "@api.clarifai.com/v1/token/grant_type=client_credentials")
-    if access_token == "":
-        req = urllib2.Request("https://api.clarifai.com/v1/token/")
-        data = {"client_id": CLIENT_ID, "client_secret": CLIENT_SECRET, "grant_type": "client_credentials"}
-        req.data /= urllib.urlencode(data)
-        u = urllib2.urlopen(req)
-        response = u.read()
-        data = json.loads(response)
-        access_token = data["access_token"]
+#response = u.read()
+    #data = json.loads(response)
+    #print(data)
+
+    ##I commented this out --Jiaqi
+#    if access_token == "":
+ #       req = urllib2.Request("https://api.clarifai.com/v1/token/")
+  #      data = {"client_id": CLIENT_ID, "client_secret": CLIENT_SECRET, "grant_#type": "client_credentials"}
+ #       req.data /= urllib.urlencode(data)
+  #      u = urllib2.urlopen(req)
+   #     response = u.read()
+    #    data = json.loads(response)
+     #   access_token = data["access_token"]
+
+   
+    paths = user.get_pics("all")
+    images = []
+    count = 0
+    for i in paths:
+        images.append([])
+        temp = i[0][13:]
+        images[count].append(temp)
+        count = count + 1
+    for e in images:
+        e.append(user.get_name("static/images"+e[0])[0][0])
+        e.append(user.get_username(user.match_UID(e[1])))
     
-    images = glob.glob("static/images/*")
-    ci = []
-    modals = []
-    for i in images:
-        image = i[13:]
-        target = "#"+i[14:]
-        target= target[:-4]
-        imageAndTarget = [image,target]
-        ci.append(imageAndTarget)
-        modals.append([target[1:],"/"+i])
+    print(images)
     if "username" not in session:
-        return render_template("index.html", images=ci, modals=modals)
-    return render_template("index.html",username=session['username'], images=ci, modals=modals)
+        return render_template("index.html", images=images)
+    return render_template("index.html",username=session['username'], images=images)
 
 
 #create a new account app route
@@ -114,7 +122,8 @@ def upload_local():
 def local():
     file = request.files['file']
     if file and checkFile(file.filename):
-        name = stripPunctuation(request.form['filename'])
+        fn = request.form['filename']
+        name = stripPunctuation(fn)
         ext = file.filename.rsplit('.',1)[1]
         filename = secure_filename(name+"."+ext)
         filename = repeatedName(filename,0,False)
@@ -124,19 +133,22 @@ def local():
         #add_pic(path+"/"+filename, uid????, tags)
         #a way to add tags one by one since the variable tags is a dict?
         uid = user.get_UID(session['username'])
-        user.add_pic(os.path.join(path,filename),uid)
+        user.add_pic(os.path.join(path,filename),uid,fn)
         return render_template("index.html",username=session['username'],message="Image Uploaded!",category="success")
     return render_template("upload.html",upload="True",message="Invalid File",category="danger")
 
 @app.route("/upload/web", methods=['POST'])
 def web():
-    if checkFile(request.form['link']):
+    if file and checkFile(request.form['link']):
         ext = request.form['link'].rsplit('.',1)[1]
         response = urllib.urlopen(request.form['link'])
         image = response.read()
         filename = stripPunctuation(request.form['filename'])+"."+ext
         filename = secure_filename(filename)
         filename = repeatedName(filename,0,False)
+        file.save(os.path.join(path,filename))
+        uid = user.get_UID(session['username'])
+        user.add_pic(os.path.join(path,filename),uid,fn)
         with open(path+"/"+filename,"wb") as out:
             out.write(image)
             return render_template("index.html",username=session['username'],message="Image Uploaded!", category="success")
