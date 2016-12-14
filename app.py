@@ -2,6 +2,7 @@ from flask import abort, Flask, render_template, request, redirect, url_for, ses
 import datetime, os, urllib, urllib2, json, string
 from werkzeug.utils import secure_filename
 
+import utils
 import hashlib
 import db_builder
 import user
@@ -36,8 +37,8 @@ def index():
    #     response = u.read()
     #    data = json.loads(response)
      #   access_token = data["access_token"]
-
-   
+    
+    utils.uploadPic("static/images/train.jpg")
     paths = user.get_pics("all")
     images = []
     count = 0

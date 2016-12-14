@@ -1,4 +1,4 @@
-import urllib2, json
+import urllib, urllib2, json, base64
 
 def getTags(url, accesstoken):
     u = urllib2.urlopen("https://api.clarifai.com/v1/tag?url=/"+url+"&access_token="+accesstoken)
@@ -6,10 +6,24 @@ def getTags(url, accesstoken):
     data = json.loads(response)
     return data["results"][0]["result"]["tag"]["classes"]
 
-def uploadPic (url, filename):
-    req = urllib2.Request("https://api.tinify.com/shrink")
-    data = {"user api": "N5bZsPRvTbuuTmdrXykaLC7WJPmnrW3N", "data-binary": filename, "dump-header": url}
-    req.data = urllib.urlencode(data)
+def uploadPic (path):
+    #encode image
+    with open(path, "rb") as image:
+        encoded_image = base64.b64encode(image.read())
+    paramdict = {'quality':'2','category':'1','debug':'0', 'image': encoded_image}
+    params = urllib.urlencode(paramdict)
+    
+    #encode auth header
+    authstr = "Basic " + base64.b64encode("api:" + "N5bZsPRvTbuuTmdrXykaLC7WJPmnrW3N")
+
+    #create request
+    req = urllib2.Request("https://api.tinify.com/shrink", params)
+
+    #add headers
+    req.add_header("Authorization", authstr)
+    req.add_header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-16")
+
+    #perform request and retrieve data
     u = urllib2.urlopen(req)
     response = u.read()
     data = json.loads(response)
