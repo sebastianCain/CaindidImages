@@ -81,3 +81,8 @@ jiaqiG -- 2016-12-13-21:04
 - Images now load only when user scrolls to it
 - Site now shows name of image and its OP
 - Modified sql for additional data
+
+sebastianC -- 2016-12-14-00:23
+- Fixed clarifai dynamic access token requests
+- Finished Tinify API integration, used base64 image encoding
+- Cleaned up and commented code
