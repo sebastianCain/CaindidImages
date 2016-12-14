@@ -6,6 +6,15 @@ def getTags(url, accesstoken):
     data = json.loads(response)
     return data["results"][0]["result"]["tag"]["classes"]
 
+def uploadPic (url, filename):
+    req = urllib2.Request("https://api.tinify.com/shrink")
+    data = {"user api": "N5bZsPRvTbuuTmdrXykaLC7WJPmnrW3N", "data-binary": filename, "dump-header": url}
+    req.data = urllib.urlencode(data)
+    u = urllib2.urlopen(req)
+    response = u.read()
+    data = json.loads(response)
+    return data["location"]
+
 '''
 in user.py
 
