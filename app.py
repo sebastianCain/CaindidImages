@@ -9,7 +9,7 @@ import glob
 
 CLIENT_ID = "Y8pZV9ZL3UxoCsTzeg-lK4zz6nJDJmZ0bt0xheJA"
 CLIENT_SECRET = "RtqGr7kvfCdiyzCRZsJ2ElqdsjJpreydSkTCZUO4"
-accesstoken = ""
+access_token = ""
 
 #path for upload folder
 path = "static/images"
@@ -24,9 +24,14 @@ def validate_form(form, required_keys):
 def index():
     #u = urllib2.urlopen("https://api.clarifai.com/v1/token?client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&grant_type=client_credentials")
     #u = urllib2.urlopen("https://" + CLIENT_ID + ":" + CLIENT_SECRET + "@api.clarifai.com/v1/token/grant_type=client_credentials")
-    #response = u.read()
-    #data = json.loads(response)
-    #print(data)
+    if access_token == "":
+        req = urllib2.Request("https://api.clarifai.com/v1/token/")
+        data = {"client_id": CLIENT_ID, "client_secret": CLIENT_SECRET, "grant_type": "client_credentials"}
+        req.data /= urllib.urlencode(data)
+        u = urllib2.urlopen(req)
+        response = u.read()
+        data = json.loads(response)
+        access_token = data["access_token"]
     
     images = glob.glob("static/images/*")
     ci = []
