@@ -74,7 +74,8 @@ def register():
         username = request.form["username"]
         password = request.form["pass"]
         password_confirm = request.form["passconfirm"]
-
+        if len(password) <= 5:
+            return render_template("register.html",message="Password must contain more than 5 characters.",category="danger")
         if not username.isalnum():
             return render_template("register.html", message="Usernames must contain only alphanumeric characters.", category="danger")
 
