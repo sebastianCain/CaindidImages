@@ -107,7 +107,7 @@ def add_pic(path,uid,name,tags):
     db.close()
 
 #debugging function
-def add_pic(path,uid,name):
+'''def add_pic(path,uid,name):
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
     
@@ -121,7 +121,7 @@ def add_pic(path,uid,name):
         c.execute(query,(path,uid,name))
         
     db.commit()
-    db.close()
+    db.close()'''
 
 def get_pics(uid):
     db = sqlite3.connect(DATABASE)
