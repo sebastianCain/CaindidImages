@@ -159,3 +159,11 @@ def get_lon(path):
     n = c.fetchall()
     return n
 
+
+def get_tags(path):
+    db = sqlite3.connect(DATABASE)
+    c = db.cursor()
+    query = "SELECT tags FROM pics WHERE path = ?"
+    c.execute(query,(path,))
+    p = c.fetchall()
+    return p[0]
