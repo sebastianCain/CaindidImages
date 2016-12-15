@@ -20,7 +20,7 @@
     {% for image in images %}
   <h4>{{ image[1] }}</h4>
 	<a href="{{ url_for('static', filename = 'images' + image[0])}}" data-lightbox="image">
-	  <img class="index lazy" src="/static/js/ajax-loader.gif" data-original="{{ url_for('static', filename = 'images' + image[0]) }}" width="300" height="300"></img></a>
+	  <img class="index" src="{{ url_for('static', filename = 'images' + image[0]) }}" height="300"></img></a>
 	<br>
 	 posted by {{ image[2] }} <br><br><br><br>
     {% endfor %}

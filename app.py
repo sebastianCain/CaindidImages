@@ -38,19 +38,18 @@ def index():
     #    data = json.loads(response)
      #   access_token = data["access_token"]
     
+#<<<<<<< HEAD
+   # utils.uploadPic("static/images/mrsmall.gif")
+#=======
+ #   utils.uploadPic("static/images/train.jpg")
+#>>>>>>> 4f2a2776cd63c6898a92222618d828e44b22070f
     paths = user.get_pics("all")
     images = []
-    tags = []
-    #I added this^ -Lawrence
     count = 0
     for i in paths:
         images.append([])
         temp = i[0][13:]
         images[count].append(temp)
-        temp = i[3]
-        #I added this^ -Lawrence
-        tags[count].append(temp)
-        #I added this^ -Lawrence
         count = count + 1
     for e in images:
         e.append(user.get_name("static/images"+e[0])[0][0])
@@ -60,7 +59,7 @@ def index():
     
     if "username" not in session:
         return render_template("index.html", images=images)
-    return render_template("index.html",username=session['username'], images=images, tags = tags)
+    return render_template("index.html",username=session['username'], images=images)
 
 
 #create a new account app route
