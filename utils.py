@@ -9,21 +9,7 @@ def getTags(url, accesstoken):
 def uploadPic (path):
     #encode image
     with open(path, "rb") as image:
-        #encoded_image = bytearray(image.read())
-        #imagestr = StringIO.StringIO(encoded_image)
-        #imagestr.name = "file"
         encoded_image = base64.b64encode(image.read())
-    #paramdict = {'quality':'2','category':'1','debug':'0', 'image': encoded_image}
-    #params = urllib.urlencode(paramdict)
-    
-    #encode auth header
-    #authstr = "Basic " + base64.b64encode("api:" + "N5bZsPRvTbuuTmdrXykaLC7WJPmnrW3N")
-        
-    #create request
-    #req = urllib2.Request("https://api.cloudinary.com/v1_1/dv5y12rxk/image/upload")
-    #print("START PARAMS\n" + params + "\nEND PARAMS")
-    #add headers
-    #req.add_header("Authorization", authstr)
     utime = int(time.time())
     encoder = hashlib.sha1()
     encoder.update("timestamp=" + str(utime) + "85ML_d2dPhlbbCTJ0h-HXL4UvZQ")
@@ -47,10 +33,8 @@ def uploadPic (path):
         print(data)
     except urllib2.HTTPError as e:
         print("ERROR OUTPUT: " + e.read())
-    
-    #return data
-    #except urllib2.HTTPError as e:
-        #print(e.read() + "AHHAAHAHAH")
+
+    return data["url"]
 
 '''
 in user.py
