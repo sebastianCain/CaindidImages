@@ -54,6 +54,8 @@ def index():
     for e in images:
         e.append(user.get_name("static/images"+e[0])[0][0])
         e.append(user.get_username(user.match_UID(e[1])))
+        e.append(user.get_lat("static/images"+e[0])[0][0])
+        e.append(user.get_lon("static/images"+e[0])[0][0])
     
     if "username" not in session:
         return render_template("index.html", images=images)
