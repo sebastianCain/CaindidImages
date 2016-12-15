@@ -56,3 +56,10 @@ img:hover {
 .tooltip-wide .tooltip{
     width:400px;
 }
+
+
+.lb-data .lb-caption{
+    font-size:30px;
+    font-weight:700;
+    line-height:2em
+}
