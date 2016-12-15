@@ -9,7 +9,7 @@ import user
 
 CLIENT_ID = "Y8pZV9ZL3UxoCsTzeg-lK4zz6nJDJmZ0bt0xheJA"
 CLIENT_SECRET = "RtqGr7kvfCdiyzCRZsJ2ElqdsjJpreydSkTCZUO4"
-access_token = ""
+Access_token = ""
 
 #path for upload folder
 path = "static/images"
@@ -22,15 +22,15 @@ def validate_form(form, required_keys):
 #login route
 @app.route("/", methods=["POST", "GET"])
 def index():
-  # if access_token == "":
-   #     req = urllib2.Request("https://api.clarifai.com/v1/token/")
-    #    data = {"client_id": CLIENT_ID, "client_secret": CLIENT_SECRET, "grant_#type": "client_credentials"}
-     #   req.data /= urllib.urlencode(data)
-      #  u = urllib2.urlopen(req)
-       # response = u.read()
-        #data = json.loads(response)
-        #access_token = data["access_token"]
-
+    if Access_token == "":
+        req = urllib2.Request("https://api.clarifai.com/v1/token/")
+        data = {"client_id": CLIENT_ID, "client_secret": CLIENT_SECRET, "grant_type": "client_credentials"}
+        req.data = urllib.urlencode(data)
+        u = urllib2.urlopen(req)
+        response = u.read()
+        data = json.loads(response)
+        global Access_token
+        Access_token = data["access_token"]
     paths = user.get_pics("all")
     images = []
     count = 0
@@ -125,7 +125,9 @@ def local():
         file.save(os.path.join(path,filename))
         uid = user.get_UID(session['username'])
         link = utils.uploadPic (os.path.join(path,filename))
-        tags = getTags(link, accesstoken)
+        tags = utils.getTags(link, Access_token)
+        print "#####################"
+        print tags
         user.add_pic(os.path.join(path,filename),uid,fn,tags)
         return render_template("index.html",username=session['username'],message="Image Uploaded!",category="success")
     return render_template("upload.html",upload="True",message="Invalid File",category="danger")
@@ -141,7 +143,7 @@ def web():
         filename = repeatedName(filename,0,False)
         uid = user.get_UID(session['username'])
         #link = utils.uploadPic (os.path.join(path,filename))
-        #tags = getTags(link, accesstoken)
+        #tags = utils.getTags(link, Access_token)
         user.add_pic(os.path.join(path,filename),uid,request.form['filename'],tags)
         with open(path+"/"+filename,"wb") as out:
             out.write(image)

@@ -90,6 +90,23 @@ data = getIPAddress(api_key,ip_address)
 
 
 #For now, only work with parameters path and uid
+def add_pic(path,uid,name,tags):
+    db = sqlite3.connect(DATABASE)
+    c = db.cursor()
+    
+    if data['statusCode'] == "OK":
+        lat = data['latitude']
+        lon = data['longitude']
+        query = "INSERT INTO pics (path,userID,name,tags,lat,lon) VALUES (?, ?, ?, ?, ?,?)"
+        c.execute(query,(path,uid,name,tags,lat,lon))
+    else:
+        query = "INSERT INTO pics (path,userID,name,tags) VALUES (?, ?, ?,?)"
+        c.execute(query,(path,uid,name,tags))
+        
+    db.commit()
+    db.close()
+
+#debugging function
 def add_pic(path,uid,name):
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
@@ -97,7 +114,7 @@ def add_pic(path,uid,name):
     if data['statusCode'] == "OK":
         lat = data['latitude']
         lon = data['longitude']
-        query = "INSERT INTO pics (path,userID,name,lat,lon) VALUES (?, ?, ?, ?, ?)"
+        query = "INSERT INTO pics (path,userID,name,lat,lon) VALUES (?, ?, ?, ?,?)"
         c.execute(query,(path,uid,name,lat,lon))
     else:
         query = "INSERT INTO pics (path,userID,name) VALUES (?, ?, ?)"
