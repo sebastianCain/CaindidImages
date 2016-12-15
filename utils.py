@@ -7,12 +7,15 @@ def getTags(url, accesstoken):
     return data["results"][0]["result"]["tag"]["classes"]
 
 def uploadPic (path):
+    
+    CLOUDINARY_SECRET = "85ML_d2dPhlbbCTJ0h-HXL4UvZQ"
+    
     #encode image
     with open(path, "rb") as image:
         encoded_image = base64.b64encode(image.read())
     utime = int(time.time())
     encoder = hashlib.sha1()
-    encoder.update("timestamp=" + str(utime) + "85ML_d2dPhlbbCTJ0h-HXL4UvZQ")
+    encoder.update("timestamp=" + str(utime) + CLOUDINARY_SECRET)
     datadict = {"file": "data:image/jpg;base64," + encoded_image,
                 "api_key": "246477329826533",
                 "timestamp": str(utime),
