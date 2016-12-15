@@ -41,18 +41,4 @@ def add_tag(path):
 
     db.commit()
     db.close()
-
-
-
-In app.py
-
-import clarifai
-
-#when you upload a picture
-tags = clarifai.getTags(path+"/"+filename)
-for tag in tags:
-   add_tag(path+"/"+filename)
-
-
-Then use html to display the tags
 '''
