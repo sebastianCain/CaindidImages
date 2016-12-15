@@ -38,11 +38,11 @@ def index():
     #    data = json.loads(response)
      #   access_token = data["access_token"]
     
-<<<<<<< HEAD
+#<<<<<<< HEAD
    # utils.uploadPic("static/images/mrsmall.gif")
-=======
-    utils.uploadPic("static/images/train.jpg")
->>>>>>> 4f2a2776cd63c6898a92222618d828e44b22070f
+#=======
+ #   utils.uploadPic("static/images/train.jpg")
+#>>>>>>> 4f2a2776cd63c6898a92222618d828e44b22070f
     paths = user.get_pics("all")
     images = []
     count = 0
