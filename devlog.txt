@@ -91,3 +91,8 @@ jiaqiG -- 2016-12-14-21:08
 - Added coordinates to sql table
 - Encorporated Google Maps API 
 - Added bootstrap grid to index page 
+
+yukiC -- 2016-12-15 02:16
+- Add security check to password set up
+- Tooltips that show the requirement for each fields on register page
+- Show tags as caption when user clicks open to show actual size image
