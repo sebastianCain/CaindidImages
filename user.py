@@ -1,5 +1,7 @@
 import sqlite3
 import hashlib
+import requests
+import json
 
 DATABASE = "data.db"
 
@@ -64,9 +66,14 @@ def get_info(uid):
 def add_pic(path,uid,name):
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
-
-    query = "INSERT INTO pics (path,userID,name) VALUES (?, ?, ?)"
-    c.execute(query,(path,uid,name))
+    send_url = 'http://freegeoip.net/json'
+    r = requests.get(send_url)
+    j = json.loads(r.text)
+    lat = j['latitude']
+    lon = j['longitude']
+    
+    query = "INSERT INTO pics (path,userID,name,lat,lon) VALUES (?, ?, ?, ?, ?)"
+    c.execute(query,(path,uid,name,lat,lon))
 
     db.commit()
     db.close()
@@ -87,6 +94,22 @@ def get_name(path):
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
     query = "SELECT name FROM pics WHERE path = ?"
+    c.execute(query,(path,))
+    n = c.fetchall()
+    return n
+
+def get_lat(path):
+    db = sqlite3.connect(DATABASE)
+    c = db.cursor()
+    query = "SELECT lat FROM pics WHERE path = ?"
+    c.execute(query,(path,))
+    n = c.fetchall()
+    return n
+
+def get_lon(path):
+    db = sqlite3.connect(DATABASE)
+    c = db.cursor()
+    query = "SELECT lon FROM pics WHERE path = ?"
     c.execute(query,(path,))
     n = c.fetchall()
     return n

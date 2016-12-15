@@ -38,11 +38,6 @@ def index():
     #    data = json.loads(response)
      #   access_token = data["access_token"]
     
-#<<<<<<< HEAD
-   # utils.uploadPic("static/images/mrsmall.gif")
-#=======
- #   utils.uploadPic("static/images/train.jpg")
-#>>>>>>> 4f2a2776cd63c6898a92222618d828e44b22070f
     paths = user.get_pics("all")
     images = []
     tags = []
@@ -60,6 +55,8 @@ def index():
     for e in images:
         e.append(user.get_name("static/images"+e[0])[0][0])
         e.append(user.get_username(user.match_UID(e[1])))
+        e.append(user.get_lat("static/images"+e[0])[0][0])
+        e.append(user.get_lon("static/images"+e[0])[0][0])
     
     if "username" not in session:
         return render_template("index.html", images=images)
