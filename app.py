@@ -22,16 +22,14 @@ def validate_form(form, required_keys):
 #login route
 @app.route("/", methods=["POST", "GET"])
 def index():
-
-
-    if access_token == "":
-        req = urllib2.Request("https://api.clarifai.com/v1/token/")
-        data = {"client_id": CLIENT_ID, "client_secret": CLIENT_SECRET, "grant_#type": "client_credentials"}
-        req.data /= urllib.urlencode(data)
-        u = urllib2.urlopen(req)
-        response = u.read()
-        data = json.loads(response)
-        access_token = data["access_token"]
+  # if access_token == "":
+   #     req = urllib2.Request("https://api.clarifai.com/v1/token/")
+    #    data = {"client_id": CLIENT_ID, "client_secret": CLIENT_SECRET, "grant_#type": "client_credentials"}
+     #   req.data /= urllib.urlencode(data)
+      #  u = urllib2.urlopen(req)
+       # response = u.read()
+        #data = json.loads(response)
+        #access_token = data["access_token"]
 
     paths = user.get_pics("all")
     images = []
@@ -142,8 +140,8 @@ def web():
         filename = secure_filename(filename)
         filename = repeatedName(filename,0,False)
         uid = user.get_UID(session['username'])
-        link = utils.uploadPic (os.path.join(path,filename))
-        tags = getTags(link, accesstoken)
+        #link = utils.uploadPic (os.path.join(path,filename))
+        #tags = getTags(link, accesstoken)
         user.add_pic(os.path.join(path,filename),uid,request.form['filename'],tags)
         with open(path+"/"+filename,"wb") as out:
             out.write(image)

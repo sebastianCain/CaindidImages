@@ -1,7 +1,13 @@
 import sqlite3
 import hashlib
-import requests
+import re
 import json
+import urllib2
+from urllib2 import urlopen
+
+import socket
+from freegeoip import get_geodata
+
 
 DATABASE = "data.db"
 
@@ -62,19 +68,41 @@ def get_info(uid):
         }
     return info
 
+api_key = "02faf2453733544398971093aec429153d210a5c1820321f93bfe6e6ed6fda23"
+ip_address = urlopen('http://ip.42.pl/raw').read()
+
+def getIPAddress(api_key,ip_address):
+    api_endpoint = "http://api.ipinfodb.com/v3/ip-city/?key=" +api_key+"&ip="+ip_address+"&format=json"
+    try:
+        api_response = urllib2.urlopen(api_endpoint)
+        try:
+            return json.loads(api_response.read())
+        except (ValueError, KeyError, TypeError):
+            return "JSON format error"
+    
+    except IOError, e:
+        if hasattr(e, 'code'):
+            return e.code
+        elif hasattr(e, 'reason'):
+            return e.reason
+
+data = getIPAddress(api_key,ip_address)
+
+
 #For now, only work with parameters path and uid
-def add_pic(path,uid,name,tags):
+def add_pic(path,uid,name):
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
-    send_url = 'http://freegeoip.net/json'
-    r = requests.get(send_url)
-    j = json.loads(r.text)
-    lat = j['latitude']
-    lon = j['longitude']
     
-    query = "INSERT INTO pics (path,userID,name,tags,lat,lon) VALUES (?, ?, ?, ?, ?)"
-    c.execute(query,(path,uid,name,tags,lat,lon))
-
+    if data['statusCode'] == "OK":
+        lat = data['latitude']
+        lon = data['longitude']
+        query = "INSERT INTO pics (path,userID,name,lat,lon) VALUES (?, ?, ?, ?, ?)"
+        c.execute(query,(path,uid,name,lat,lon))
+    else:
+        query = "INSERT INTO pics (path,userID,name) VALUES (?, ?, ?)"
+        c.execute(query,(path,uid,name))
+        
     db.commit()
     db.close()
 
