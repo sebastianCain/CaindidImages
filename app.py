@@ -136,7 +136,7 @@ def local():
         uid = user.get_UID(session['username'])
         link = utils.uploadPic (os.path.join(path,filename))
         tags = utils.getTags(link, Access_token)
-        stringTags=", ".join(tags)
+        stringTags=",".join(tags)
         print "#####################"
         print stringTags
         user.add_pic(os.path.join(path,filename),uid,fn,stringTags)
@@ -153,12 +153,12 @@ def web():
         filename = secure_filename(filename)
         filename = repeatedName(filename,0,False)
         uid = user.get_UID(session['username'])
-        link = utils.uploadPic (os.path.join(path,filename))
-        tags = utils.getTags(link, Access_token)
-        stringTags=", ".join(tags)
-        user.add_pic(os.path.join(path,filename),uid,request.form['filename'],stringTags)
         with open(path+"/"+filename,"wb") as out:
             out.write(image)
+            link = utils.uploadPic (os.path.join(path,filename))
+            tags = utils.getTags(link, Access_token)
+            stringTags=",".join(tags)
+            user.add_pic(os.path.join(path,filename),uid,request.form['filename'],stringTags)
             return render_template("index.html",username=session['username'],message="Image Uploaded!", category="succe\
 ss")
     return render_template("upload.html",upload="True",message="Invalid File",category="danger")
