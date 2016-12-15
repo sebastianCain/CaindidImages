@@ -8,7 +8,7 @@ def getTags(url, accesstoken):
 
 def uploadPic (path):
     
-    CLOUDINARY_SECRET = "85ML_d2dPhlbbCTJ0h-HXL4UvZQ"
+    CLOUDINARY_SECRET = "INSERT CLOUDINARY SECRET HERE"
     
     #encode image
     with open(path, "rb") as image:
@@ -26,24 +26,7 @@ def uploadPic (path):
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
     req = urllib2.Request("https://api.cloudinary.com/v1_1/dv5y12rxk/image/upload", encodeddata, headers)
     
-    try:
-        u = urllib2.urlopen(req)
-        response = u.read()
-        data = json.loads(response)
-    except urllib2.HTTPError as e:
-        print("ERROR OUTPUT: " + e.read())
+    u = urllib2.urlopen(req)
+    response = u.read()
+    data = json.loads(response)
     return data["url"]
-
-'''
-in user.py
-
-def add_tag(path):
-    db = sqlite3.connect(DATABASE)
-    c = db.cursor()
-
-    query = "INSERT INTO pics WHERE [path = path of image] [this tag]"
-    c.execute(query)
-
-    db.commit()
-    db.close()
-'''

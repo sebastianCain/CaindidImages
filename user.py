@@ -106,23 +106,6 @@ def add_pic(path,uid,name,tags):
     db.commit()
     db.close()
 
-#debugging function
-'''def add_pic(path,uid,name):
-    db = sqlite3.connect(DATABASE)
-    c = db.cursor()
-    
-    if data['statusCode'] == "OK":
-        lat = data['latitude']
-        lon = data['longitude']
-        query = "INSERT INTO pics (path,userID,name,lat,lon) VALUES (?, ?, ?, ?,?)"
-        c.execute(query,(path,uid,name,lat,lon))
-    else:
-        query = "INSERT INTO pics (path,userID,name) VALUES (?, ?, ?)"
-        c.execute(query,(path,uid,name))
-        
-    db.commit()
-    db.close()'''
-
 def get_pics(uid):
     db = sqlite3.connect(DATABASE)
     c = db.cursor()

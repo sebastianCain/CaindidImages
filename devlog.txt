@@ -96,3 +96,7 @@ yukiC -- 2016-12-15 02:16
 - Add security check to password set up
 - Tooltips that show the requirement for each fields on register page
 - Show tags as caption when user clicks open to show actual size image
+
+lawrenceL -- 2016-12-15 02:49
+- Completed tagging functionality, all pictures will be assigned tags once uploaded
+- Minor text fixes

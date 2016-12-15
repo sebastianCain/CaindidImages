@@ -4,11 +4,10 @@ from werkzeug.utils import secure_filename
 
 import utils
 import hashlib
-import db_builder
 import user
 
-CLIENT_ID = "Y8pZV9ZL3UxoCsTzeg-lK4zz6nJDJmZ0bt0xheJA"
-CLIENT_SECRET = "RtqGr7kvfCdiyzCRZsJ2ElqdsjJpreydSkTCZUO4"
+CLIENT_ID = "INSERT CLIENT ID HERE"
+CLIENT_SECRET = "INSERT CLIENT SECRET HERE"
 Access_token = ""
 
 #path for upload folder
@@ -137,8 +136,6 @@ def local():
         link = utils.uploadPic (os.path.join(path,filename))
         tags = utils.getTags(link, Access_token)
         stringTags=",".join(tags)
-        print "#####################"
-        print stringTags
         user.add_pic(os.path.join(path,filename),uid,fn,stringTags)
         return render_template("index.html",username=session['username'],message="Image Uploaded!",category="success")
     return render_template("upload.html",upload="True",message="Invalid File",category="danger")
