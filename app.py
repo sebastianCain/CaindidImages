@@ -139,19 +139,19 @@ def local():
 
 @app.route("/upload/web", methods=['POST'])
 def web():
-    if file and checkFile(request.form['link']):
+    if checkFile(request.form['link']):
         ext = request.form['link'].rsplit('.',1)[1]
         response = urllib.urlopen(request.form['link'])
         image = response.read()
         filename = stripPunctuation(request.form['filename'])+"."+ext
         filename = secure_filename(filename)
         filename = repeatedName(filename,0,False)
-        file.save(os.path.join(path,filename))
         uid = user.get_UID(session['username'])
-        user.add_pic(os.path.join(path,filename),uid,fn)
+        user.add_pic(os.path.join(path,filename),uid,request.form['filename'])
         with open(path+"/"+filename,"wb") as out:
             out.write(image)
-            return render_template("index.html",username=session['username'],message="Image Uploaded!", category="success")
+            return render_template("index.html",username=session['username'],message="Image Uploaded!", category="succe\
+ss")
     return render_template("upload.html",upload="True",message="Invalid File",category="danger")
 
 def stripPunctuation(name):
