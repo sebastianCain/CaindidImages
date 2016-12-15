@@ -1,4 +1,4 @@
-import urllib, urllib2, json, base64, time, hashlib
+import urllib, urllib2, json, base64
 
 def getTags(url, accesstoken):
     u = urllib2.urlopen("https://api.clarifai.com/v1/tag?url=/"+url+"&access_token="+accesstoken)
@@ -10,37 +10,24 @@ def uploadPic (path):
     #encode image
     with open(path, "rb") as image:
         encoded_image = base64.b64encode(image.read())
-    #paramdict = {'quality':'2','category':'1','debug':'0', 'image': encoded_image}
-    #params = urllib.urlencode(paramdict)
+    paramdict = {'quality':'2','category':'1','debug':'0', 'image': encoded_image}
+    params = urllib.urlencode(paramdict)
     
     #encode auth header
-    #authstr = "Basic " + base64.b64encode("api:" + "N5bZsPRvTbuuTmdrXykaLC7WJPmnrW3N")
-        
+    authstr = "Basic " + base64.b64encode("api:" + "N5bZsPRvTbuuTmdrXykaLC7WJPmnrW3N")
+
     #create request
-    req = urllib2.Request("https://api.cloudinary.com/v1_1/demo/image/upload")
-    #print("START PARAMS\n" + params + "\nEND PARAMS")
+    req = urllib2.Request("https://api.tinify.com/shrink", params)
+
     #add headers
-    #req.add_header("Authorization", authstr)
-    #req.add_header("Content-Type", "application/x-www-form-urlencoded")
-    utime = int(time.time())
-    encoder = hashlib.sha1()
-    encoder.update("timestamp=" + str(utime) + "85ML_d2dPhlbbCTJ0h-HXL4UvZQ")
-    datadict = {"file": encoded_image,
-            "api_key": "246477329826533",
-            "timestamp": str(utime),
-            "signature": encoder.digest()
-           }
-    req.data = urllib.urlencode(datadict)
-    
-    print(req)
+    req.add_header("Authorization", authstr)
+    req.add_header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-16")
+
+    #perform request and retrieve data
     u = urllib2.urlopen(req)
-    
     response = u.read()
     data = json.loads(response)
-    print(data)
-    return data
-    #except urllib2.HTTPError as e:
-        #print(e.read() + "AHHAAHAHAH")
+    return data["location"]
 
 '''
 in user.py

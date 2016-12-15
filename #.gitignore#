@@ -1,0 +1,5 @@
+*~
+*.pyc
+*.txt~
+.DS_STORE
+.secret_key
