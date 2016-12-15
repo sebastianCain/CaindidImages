@@ -17,7 +17,7 @@ def uploadPic (path):
     #authstr = "Basic " + base64.b64encode("api:" + "N5bZsPRvTbuuTmdrXykaLC7WJPmnrW3N")
         
     #create request
-    req = urllib2.Request("https://api.cloudinary.com/v1_1/demo/image/upload")
+    #req = urllib2.Request("https://api.cloudinary.com/v1_1/dv5y12rxk/image/upload")
     #print("START PARAMS\n" + params + "\nEND PARAMS")
     #add headers
     #req.add_header("Authorization", authstr)
@@ -30,14 +30,18 @@ def uploadPic (path):
             "timestamp": str(utime),
             "signature": encoder.digest()
            }
-    req.data = urllib.urlencode(datadict)
+    encodeddata = urllib.urlencode(datadict)
     
-    print(req)
+    req = urllib2.Request("https://api.cloudinary.com/v1_1/dv5y12rxk/image/upload", encodeddata)
+    
+    print("REQ DATA\n" + req.data)
+    print("REQ HEADERS\n" + urllib.urlencode(req.headers))
+    print
     u = urllib2.urlopen(req)
     
     response = u.read()
     data = json.loads(response)
-    print(data)
+    
     return data
     #except urllib2.HTTPError as e:
         #print(e.read() + "AHHAAHAHAH")
