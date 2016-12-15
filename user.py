@@ -63,7 +63,7 @@ def get_info(uid):
     return info
 
 #For now, only work with parameters path and uid
-def add_pic(path,uid,name):
+def add_pic(path,uid,name,tags):
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
     send_url = 'http://freegeoip.net/json'
@@ -72,8 +72,8 @@ def add_pic(path,uid,name):
     lat = j['latitude']
     lon = j['longitude']
     
-    query = "INSERT INTO pics (path,userID,name,lat,lon) VALUES (?, ?, ?, ?, ?)"
-    c.execute(query,(path,uid,name,lat,lon))
+    query = "INSERT INTO pics (path,userID,name,tags,lat,lon) VALUES (?, ?, ?, ?, ?)"
+    c.execute(query,(path,uid,name,tags,lat,lon))
 
     db.commit()
     db.close()

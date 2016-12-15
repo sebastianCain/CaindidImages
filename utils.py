@@ -23,17 +23,12 @@ def uploadPic (path):
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
     req = urllib2.Request("https://api.cloudinary.com/v1_1/dv5y12rxk/image/upload", encodeddata, headers)
     
-    print("REQ DATA\n" + req.data)
-    print("REQ HEADERS\n" + urllib.urlencode(req.headers))
-    print
     try:
         u = urllib2.urlopen(req)
         response = u.read()
         data = json.loads(response)
-        print(data)
     except urllib2.HTTPError as e:
         print("ERROR OUTPUT: " + e.read())
-
     return data["url"]
 
 '''

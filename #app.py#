@@ -23,15 +23,17 @@ def validate_form(form, required_keys):
 @app.route("/", methods=["POST", "GET"])
 def index():
 
-
-    if access_token == "":
-        req = urllib2.Request("https://api.clarifai.com/v1/token/")
-        data = {"client_id": CLIENT_ID, "client_secret": CLIENT_SECRET, "grant_#type": "client_credentials"}
-        req.data /= urllib.urlencode(data)
-        u = urllib2.urlopen(req)
-        response = u.read()
-        data = json.loads(response)
-        access_token = data["access_token"]
+    ##I commented this out --Jiaqi
+#    if access_token == "":
+ #       req = urllib2.Request("https://api.clarifai.com/v1/token/")
+  #      data = {"client_id": CLIENT_ID, "client_secret": CLIENT_SECRET, "grant_#type": "client_credentials"}
+ #       req.data /= urllib.urlencode(data)
+  #      u = urllib2.urlopen(req)
+   #     response = u.read()
+    #    data = json.loads(response)
+     #   access_token = data["access_token"]
+    
+#   utils.uploadPic("static/images/train.jpg")
 
     paths = user.get_pics("all")
     images = []
@@ -64,8 +66,7 @@ def register():
         username = request.form["username"]
         password = request.form["pass"]
         password_confirm = request.form["passconfirm"]
-        if len(password) <= 5:
-            return render_template("register.html",message="Password must contain more than 5 characters.",category="danger")
+
         if not username.isalnum():
             return render_template("register.html", message="Usernames must contain only alphanumeric characters.", category="danger")
 
@@ -126,9 +127,7 @@ def local():
         filename = repeatedName(filename,0,False)
         file.save(os.path.join(path,filename))
         uid = user.get_UID(session['username'])
-        link = utils.uploadPic (os.path.join(path,filename))
-        tags = getTags(link, accesstoken)
-        user.add_pic(os.path.join(path,filename),uid,fn,tags)
+        user.add_pic(os.path.join(path,filename),uid,fn)
         return render_template("index.html",username=session['username'],message="Image Uploaded!",category="success")
     return render_template("upload.html",upload="True",message="Invalid File",category="danger")
 
@@ -142,9 +141,7 @@ def web():
         filename = secure_filename(filename)
         filename = repeatedName(filename,0,False)
         uid = user.get_UID(session['username'])
-        link = utils.uploadPic (os.path.join(path,filename))
-        tags = getTags(link, accesstoken)
-        user.add_pic(os.path.join(path,filename),uid,request.form['filename'],tags)
+        user.add_pic(os.path.join(path,filename),uid,request.form['filename'])
         with open(path+"/"+filename,"wb") as out:
             out.write(image)
             return render_template("index.html",username=session['username'],message="Image Uploaded!", category="succe\
