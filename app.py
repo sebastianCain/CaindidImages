@@ -33,6 +33,8 @@ def index():
         Access_token = data["access_token"]
     paths = user.get_pics("all")
     images = []
+    tags = []
+    tagStrings = []
     count = 0
     for i in paths:
         images.append([])
@@ -44,11 +46,19 @@ def index():
         e.append(user.get_username(user.match_UID(e[1])))
         e.append(user.get_lat("static/images"+e[0])[0][0])
         e.append(user.get_lon("static/images"+e[0])[0][0])
-    
+    #get tags from database
+    for i in range(len(images)):
+        tags.append(user.get_tags(path+images[i][0]))
+    for tag in tags:
+        tagStrings.append(generateTags(tag[0]))
     if "username" not in session:
-        return render_template("index.html", images=images)
-    return render_template("index.html",username=session['username'], images=images)
+        return render_template("index.html", images=images, tagStrings=tagStrings)
+    return render_template("index.html",username=session['username'], images=images, tagStrings=tagStrings)
 
+def generateTags(tags):
+    t = ""
+    t = "#"+ " #".join(tags.rsplit(","))
+    return t
 
 #create a new account app route
 @app.route("/register", methods=["POST", "GET"])
@@ -174,6 +184,8 @@ def profile():
     if 'username' in session:
         paths = user.get_pics(user.get_UID(session['username']))
         images = []
+        tags = []
+        tagStrings = []
         count = 0
         for i in paths:
             images.append([])
@@ -183,8 +195,11 @@ def profile():
         for e in images:
             e.append(user.get_name("static/images"+e[0])[0][0])
             e.append(user.get_username(user.match_UID(e[1])))
-        
-        return render_template("profile.html",images=images,username=session['username'])
+        for i in range(len(images)):
+            tags.append(user.get_tags(path+images[i][0]))
+        for tag in tags:
+            tagStrings.append(generateTags(tag[0]))
+        return render_template("profile.html",images=images,username=session['username'],tagStrings=tagStrings)
     return redirect(url_for("login"))
 
 if __name__=="__main__":
